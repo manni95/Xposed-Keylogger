@@ -56,7 +56,7 @@ MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\ss
 	android:icon
 		ADDED from C:\Users\sscsps.SAHIL\githubrepos\Xposed-Keylogger1\app\src\main\AndroidManifest.xml:13:9-45
 	android:theme
-		ADDED from C:\Users\sscsps.SAHIL\githubrepos\Xposed-Keylogger1\app\src\main\AndroidManifest.xml:15:9-40
+		ADDED from C:\Users\sscsps.SAHIL\githubrepos\Xposed-Keylogger1\app\src\main\AndroidManifest.xml:15:9-53
 meta-data#xposedmodule
 ADDED from C:\Users\sscsps.SAHIL\githubrepos\Xposed-Keylogger1\app\src\main\AndroidManifest.xml:16:9-18:36
 	android:value
