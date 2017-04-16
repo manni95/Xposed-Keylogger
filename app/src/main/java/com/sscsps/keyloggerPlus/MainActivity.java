@@ -5,20 +5,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		final SharedPreferences sp = getSharedPreferences(Hook.mSharedPrefs,MODE_WORLD_READABLE);
 
 		((TextView) findViewById(R.id.pathBox)).setText(sp.getString(Hook.mLogPath, Environment.getExternalStorageDirectory() + "/KeyLogs/logs.txt"));
