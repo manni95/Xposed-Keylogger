@@ -34,7 +34,7 @@ class Crypto {
                 letter/=(int)key.charAt(keyIndex%16);
                 keyIndex++;
                 tempcode="";
-                result+=letter;
+                result+=(char)letter;
                 continue;
             }
             tempcode+=text.charAt(i);
