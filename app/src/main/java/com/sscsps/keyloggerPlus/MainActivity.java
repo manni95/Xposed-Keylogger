@@ -24,6 +24,10 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.pathBox)).setText(sp.getString(Hook.mLogPath, "KeyLogs/logs.txt"));
 		else
 			((TextView) findViewById(R.id.pathBox)).setText(sp.getString(Hook.mLogPath, "KeyLogs"));
+		((CheckBox) findViewById(R.id.activeCheckBox)).setChecked(sp.getBoolean(Hook.mActive, false));
+		((CheckBox) findViewById(R.id.dateCheckBox)).setChecked(sp.getBoolean(Hook.mUseDate, false));
+		((CheckBox) findViewById(R.id.encryption)).setChecked(sp.getBoolean(Hook.mEncrypt, false));
+		((EditText) findViewById(R.id.EncryptionKey)).setText(sp.getString(Hook.mEncryptKey, ""));
 
 
 		findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
@@ -34,7 +38,6 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		((CheckBox) findViewById(R.id.activeCheckBox)).setChecked(sp.getBoolean(Hook.mActive, false));
 
 		((CheckBox) findViewById(R.id.activeCheckBox)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override

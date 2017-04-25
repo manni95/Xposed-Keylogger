@@ -16,6 +16,10 @@
         "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
+        "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\log_viewer.xml",
+        "source": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\src\\main\\res\\layout\\log_viewer.xml"
+    },
+    {
         "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
         "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\abc_action_menu_item_layout.xml"
     },
