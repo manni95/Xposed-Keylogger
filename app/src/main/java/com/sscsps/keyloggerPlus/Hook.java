@@ -122,7 +122,7 @@ public class Hook implements IXposedHookZygoteInit {
 
 		String logLine = currentDateTimeString + ">" + packageName + ">" + text;
 		if(mXsp.getBoolean(mEncrypt, false)){
-			logLine = Crypto.encryptL(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
+			logLine = 'x' + Crypto.encryptL(logLine, mXsp.getString(mEncryptKey, "6677667766776677"));
 		}
 		try {
 			//Write it

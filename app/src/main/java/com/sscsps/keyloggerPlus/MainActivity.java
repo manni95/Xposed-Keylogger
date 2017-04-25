@@ -73,8 +73,13 @@ public class MainActivity extends Activity {
 					showToast("Enter a 16 Digit Key, the key you entered is not 16 digit.");
 					return;
 				}
+				if(!((CheckBox)findViewById(R.id.encryption)).isChecked()){
+                    showToast("Enable the encryption checkbox first and then Save.");
+                    return;
+                }
 				sp.edit().putString(Hook.mEncryptKey, ((EditText) findViewById(R.id.EncryptionKey)).getText().toString()).apply();
 				sp.edit().putBoolean(Hook.mEncrypt, ((CheckBox) findViewById(R.id.encryption)).isChecked()).apply();
+				showToast("Key saved and encryption is now turned ON");
 				showToast(defaultToast);
 			}
 		});
