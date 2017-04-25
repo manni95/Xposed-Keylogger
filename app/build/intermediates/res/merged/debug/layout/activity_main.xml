@@ -11,12 +11,13 @@
 
         <CheckBox
             android:id="@+id/activeCheckBox"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log the text boxes" />
+            android:text="Log the text boxes"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
-            android:id="@+id/empty"
+            android:id="@+id/empty1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Enter Path of the log file" />
+            android:text="Enter Path in internal storage for the log file" />
 
         <EditText
             android:id="@+id/pathBox"
@@ -34,13 +35,65 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:text="" />
-
-        <Button
-            android:id="@+id/saveButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/dateCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:freezesText="false"
+                android:text="Store logs per day in different file." />
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/empty2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <CheckBox
+            android:id="@+id/encryption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:freezesText="false"
+            android:text="Encrypt the Logs." />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16 Digit Key:" />
+            <EditText
+                android:id="@+id/EncryptionKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="" />
+        </LinearLayout>
 
-
+        <Button
+        android:id="@+id/keySaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Key"
+        android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 </LinearLayout>
