@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * Created by sscsps on 24/04/2017.
- * A possibly not so strong Crypto Algorithm to break
+ * A not so strong Crypto Algorithm to break
  */
 
 class Crypto {
@@ -14,16 +14,16 @@ class Crypto {
         //encryption Logic.
         String result = "";
         int dataLength = text.length();
-        int keySum = 0;
         int tempcode;
+        int keySum = 0;
         for(int i=0;i<16;i++){
-            keySum += (i * Integer.parseInt(key.substring(i,i)));
+            keySum += (i * Integer.parseInt(Character.toString(key.charAt(i))));
         }
         for(int i=0; i< text.length(); i++){
-            tempcode = (int)text.charAt(i) * (int)key.charAt(i%16) * keySum;
+            tempcode = (int)text.charAt(i) * (int)key.charAt(i%16) * keySum * dataLength;
             result += tempcode + "-";
         }
-        return result;
+        return 'x' + result;    //'x' represents that the log record is encrypted.
     }
 
     //decryption is done line by line with this method.
@@ -35,11 +35,23 @@ class Crypto {
         String result = "";
         int keyIndex = 0;
         String tempcode = "";
+        int keySum = 0;
+        for(int i=0;i<16;i++) {
+            keySum += (i * Integer.parseInt(Character.toString(key.charAt(i))));
+        }
+        int dataLength = 0;
+        for(int i=0; i<text.length();i++){
+            if(text.charAt(i)=='-'){
+                dataLength++;
+            }
+        }
         int letter;
         for(int i = 0; i<text.length(); i++){
             if(text.charAt(i)=='-'){
                 letter = Integer.parseInt(tempcode);
                 letter/=(int)key.charAt(keyIndex%16);
+                letter/=keySum;
+                letter/=dataLength;
                 keyIndex++;
                 tempcode="";
                 result+=(char)letter;

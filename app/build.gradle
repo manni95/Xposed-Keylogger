@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.sscsps.keyloggerPlus"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 25
     }
 
@@ -26,10 +26,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    provided 'de.robv.android.xposed:api:53:sources'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-
     provided 'de.robv.android.xposed:api:53'
-    provided 'de.robv.android.xposed:api:53:sources'
 }
