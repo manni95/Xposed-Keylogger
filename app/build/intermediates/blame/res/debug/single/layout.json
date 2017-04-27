@@ -16,10 +16,6 @@
         "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
-        "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\log_viewer.xml",
-        "source": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\src\\main\\res\\layout\\log_viewer.xml"
-    },
-    {
         "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
         "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\abc_action_menu_item_layout.xml"
     },
@@ -72,6 +68,14 @@
         "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\notification_action.xml"
     },
     {
+        "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\custom.xml",
+        "source": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\src\\main\\res\\layout\\custom.xml"
+    },
+    {
+        "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_log_viewer.xml",
+        "source": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\src\\main\\res\\layout\\activity_log_viewer.xml"
+    },
+    {
         "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
         "source": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
@@ -106,10 +110,6 @@
     {
         "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
         "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
-    },
-    {
-        "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\sscsps.SAHIL\\.android\\build-cache\\95510621ded1f9020cc6459ca3a015486b420827\\output\\res\\layout\\notification_template_custom_big.xml"
     },
     {
         "merged": "C:\\Users\\sscsps.SAHIL\\githubrepos\\Xposed-Keylogger1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",

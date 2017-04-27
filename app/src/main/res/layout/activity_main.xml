@@ -116,7 +116,7 @@
                 android:id="@+id/EncryptionKey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:text="" />
         </LinearLayout>
 
@@ -141,6 +141,7 @@
         android:layout_gravity="center"
         android:textSize="30sp"
         android:text="Log Viewer" />
+
     <Button
         android:id="@+id/LogViewerButton"
         android:layout_width="match_parent"
